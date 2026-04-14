@@ -21,6 +21,9 @@ class HashMap {
             const list = new LinkedList();
             this.buckets[this.hash(key)] = list;
         };
+        if (this.has(key) === true) {
+            this.buckets[this.hash(key)].replaceKey(key, value)
+        };
         this.buckets[this.hash(key)].append(key, value);
     }
 
@@ -37,6 +40,10 @@ class HashMap {
         };
         return this.buckets[this.hash(key)].checkKey(key);
     }
+
+    // remove(key) {
+
+    // }
 
     print() {
         console.log(this.buckets)
@@ -103,6 +110,23 @@ class LinkedList {
         };
         return false
     }
+
+    replaceKey(key, value) {
+        let current = this.head;
+        if (current === null) {
+            return null
+        };
+        if (current.key === key) {
+            current.value = value
+        };
+        while (current.nextNode) {
+            current = current.nextNode;
+            if (current.key === key) {
+                current.value = value
+            }
+        };
+        return null
+    }
 }
 
 const test = new HashMap();
@@ -120,11 +144,16 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 
-test.print()
+test.get('kite')
+test.get('lion')
+test.get('hat')
 
-test.has('apple')
-test.has('lion')
-test.has('hat')
-test.has('nian')
-test.has('feuisr')
+test.set('kite', 'fxvfv')
+test.set('lion', 'ikuikg')
+test.set('hat', "eeeeeee")
+
+
+test.get('kite')
+test.get('lion')
+test.get('hat')
 
