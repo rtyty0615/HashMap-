@@ -31,6 +31,13 @@ class HashMap {
         return this.buckets[this.hash(key)].findKey(key);
     }
 
+    has(key) {
+        if (this.buckets[this.hash(key)] === null) {
+            return false
+        };
+        return this.buckets[this.hash(key)].checkKey(key);
+    }
+
     print() {
         console.log(this.buckets)
     }
@@ -79,6 +86,23 @@ class LinkedList {
         };
         return null
     }
+
+    checkKey(key) {
+        let current = this.head;
+        if (current === null) {
+            return false
+        };
+        if (current.key === key) {
+            return true
+        };
+        while (current.nextNode) {
+            current = current.nextNode;
+            if (current.key === key) {
+                return true
+            }
+        };
+        return false
+    }
 }
 
 const test = new HashMap();
@@ -98,8 +122,9 @@ test.set('lion', 'golden')
 
 test.print()
 
-test.get('apple')
-test.get('lion')
-test.get('hat')
-test.get('nian')
+test.has('apple')
+test.has('lion')
+test.has('hat')
+test.has('nian')
+test.has('feuisr')
 
