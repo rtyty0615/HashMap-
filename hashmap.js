@@ -4,7 +4,9 @@ class HashMap {
     constructor(loadFactor = 0.75, capacity = 16) {
         this.loadFactor = loadFactor;
         this.capacity = capacity;
+        this.loadLevel = Math.trunc(this.loadFactor * this.capacity);
         this.buckets = new Array(this.capacity).fill(null);
+        this.entryCount = 0
     }
 
     hash(key) {
@@ -22,9 +24,15 @@ class HashMap {
             this.buckets[this.hash(key)] = list;
         };
         if (this.has(key) === true) {
-            this.buckets[this.hash(key)].replace(key, value)
+            this.buckets[this.hash(key)].replace(key, value);
+            return
         };
         this.buckets[this.hash(key)].append(key, value);
+        this.entryCount += 1;
+    }
+
+    entrySize() {
+        return console.log(this.entryCount)
     }
 
     get(key) {
@@ -48,8 +56,10 @@ class HashMap {
         const result = this.buckets[this.hash(key)].delete(key);
         if (result === null) {
             this.buckets[this.hash(key)] = null;
+            this.entryCount -= 1;
             return true
         } else if (result === true) {
+            this.entryCount -= 1;
             return true
         } else {
             return false
@@ -68,6 +78,7 @@ class HashMap {
 
     clear() {
         this.buckets = new Array(this.capacity).fill(null);
+        this.entryCount = 0;
     }
 
     keys() {
@@ -104,11 +115,11 @@ class HashMap {
             }
         }
         return arr
-
     }
 
     print() {
-        console.log(this.buckets)
+        console.log(this.buckets);
+        console.log(this.loadLevel)
     }
 
 }
@@ -294,17 +305,25 @@ test.set('kite', 'pink')
 test.set('lion', 'golden')
 
 test.print()
-test.length()
-test.entries()
+
+test.entrySize()
 
 
-// test.remove('apple')
-// test.remove('elephant')
-// test.remove('lion')
-// test.remove('hat')
-// test.remove('efdfvb')
-// test.remove('ff')
+test.remove('apple')
+test.entrySize()
+test.remove('elephant')
+test.entrySize()
+test.remove('lion')
+test.entrySize()
+test.remove('hat')
+test.entrySize()
+test.remove('efdfvb')
+test.entrySize()
+test.remove('ff')
+test.entrySize()
+test.set('carrot', 'dfsfvfvvv')
+test.entrySize()
 
-// test.print()
-// test.length()
+test.clear()
+test.entrySize()
 
