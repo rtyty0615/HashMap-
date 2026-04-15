@@ -66,6 +66,10 @@ class HashMap {
         return totalCount
     }
 
+    clear() {
+        this.buckets = new Array(this.capacity).fill(null);
+    }
+
     print() {
         console.log(this.buckets)
     }
@@ -205,14 +209,16 @@ test.set('lion', 'golden')
 
 test.print()
 test.length()
-
-test.remove('apple')
-test.remove('elephant')
-test.remove('lion')
-test.remove('hat')
-test.remove('efdfvb')
-test.remove('ff')
-
+test.clear()
 test.print()
-test.length()
+
+// test.remove('apple')
+// test.remove('elephant')
+// test.remove('lion')
+// test.remove('hat')
+// test.remove('efdfvb')
+// test.remove('ff')
+
+// test.print()
+// test.length()
 
