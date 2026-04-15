@@ -70,6 +70,18 @@ class HashMap {
         this.buckets = new Array(this.capacity).fill(null);
     }
 
+    keys() {
+        const arr = [];
+        for (const bucket of this.buckets) {
+            if (bucket) {
+                for (const key of bucket.totalKeys()) {
+                    arr.push(key)
+                }
+            }
+        }
+        return arr
+    }
+
     print() {
         console.log(this.buckets)
     }
@@ -190,6 +202,21 @@ class LinkedList {
         };
         return count
     }
+
+    totalKeys() {
+        let current = this.head;
+        const arr = [];
+        if (current === null) {
+            return null
+        };
+        arr.push(current.key);
+        while (current.nextNode) {
+            current = current.nextNode;
+            arr.push(current.key);
+        };
+        return arr
+    }
+
 }
 
 const test = new HashMap();
@@ -209,8 +236,8 @@ test.set('lion', 'golden')
 
 test.print()
 test.length()
-test.clear()
-test.print()
+test.keys()
+
 
 // test.remove('apple')
 // test.remove('elephant')
