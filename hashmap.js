@@ -56,6 +56,16 @@ class HashMap {
         }
     }
 
+    length() {
+        let totalCount = 0;
+        for (const bucket of this.buckets) {
+            if (bucket) {
+                totalCount += bucket.size();
+            }
+        }
+        return totalCount
+    }
+
     print() {
         console.log(this.buckets)
     }
@@ -162,6 +172,20 @@ class LinkedList {
         }
         return false
     }
+
+    size() {
+        let current = this.head;
+        let count = 0;
+        if (current === null) {
+            return count
+        };
+        count += 1;
+        while (current.nextNode) {
+            current = current.nextNode;
+            count += 1;
+        };
+        return count
+    }
 }
 
 const test = new HashMap();
@@ -180,6 +204,7 @@ test.set('kite', 'pink')
 test.set('lion', 'golden')
 
 test.print()
+test.length()
 
 test.remove('apple')
 test.remove('elephant')
@@ -189,4 +214,5 @@ test.remove('efdfvb')
 test.remove('ff')
 
 test.print()
+test.length()
 
