@@ -29,10 +29,29 @@ class HashMap {
         };
         this.buckets[this.hash(key)].append(key, value);
         this.entryCount += 1;
+        if (this.entryCount > this.loadLevel) {
+            this.upgradeCapacity()
+        }
     }
 
     entrySize() {
         return console.log(this.entryCount)
+    }
+
+    upgradeCapacity() {
+        const currentArr = this.entries();
+        console.log(currentArr);
+
+        this.capacity *= 2;
+        this.loadLevel = Math.trunc(this.loadFactor * this.capacity);
+        this.buckets = new Array(this.capacity).fill(null);
+        this.entryCount = 0;
+
+        for (const keyPair of currentArr) {
+            this.set(keyPair[0], keyPair[1]);
+        }
+
+        console.log(this.capacity)
     }
 
     get(key) {
@@ -303,27 +322,10 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-
-test.print()
-
 test.entrySize()
 
 
-test.remove('apple')
-test.entrySize()
-test.remove('elephant')
-test.entrySize()
-test.remove('lion')
-test.entrySize()
-test.remove('hat')
-test.entrySize()
-test.remove('efdfvb')
-test.entrySize()
-test.remove('ff')
-test.entrySize()
-test.set('carrot', 'dfsfvfvvv')
-test.entrySize()
+test.set('moon', 'silver')
 
-test.clear()
-test.entrySize()
+
 
