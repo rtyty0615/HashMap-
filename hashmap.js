@@ -22,7 +22,7 @@ class HashMap {
             this.buckets[this.hash(key)] = list;
         };
         if (this.has(key) === true) {
-            this.buckets[this.hash(key)].replaceKey(key, value)
+            this.buckets[this.hash(key)].replace(key, value)
         };
         this.buckets[this.hash(key)].append(key, value);
     }
@@ -31,19 +31,30 @@ class HashMap {
         if (this.buckets[this.hash(key)] === null) {
             return null
         };
-        return this.buckets[this.hash(key)].findKey(key);
+        return this.buckets[this.hash(key)].find(key);
     }
 
     has(key) {
         if (this.buckets[this.hash(key)] === null) {
             return false
         };
-        return this.buckets[this.hash(key)].checkKey(key);
+        return this.buckets[this.hash(key)].check(key);
     }
 
-    // remove(key) {
-
-    // }
+    remove(key) {
+        if (this.buckets[this.hash(key)] === null) {
+            return false
+        };
+        const result = this.buckets[this.hash(key)].delete(key);
+        if (result === null) {
+            this.buckets[this.hash(key)] = null;
+            return true
+        } else if (result === true) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     print() {
         console.log(this.buckets)
@@ -77,7 +88,7 @@ class LinkedList {
         current.nextNode = newNode
     }
 
-    findKey(key) {
+    find(key) {
         let current = this.head;
         if (current === null) {
             return null
@@ -94,7 +105,7 @@ class LinkedList {
         return null
     }
 
-    checkKey(key) {
+    check(key) {
         let current = this.head;
         if (current === null) {
             return false
@@ -111,7 +122,7 @@ class LinkedList {
         return false
     }
 
-    replaceKey(key, value) {
+    replace(key, value) {
         let current = this.head;
         if (current === null) {
             return null
@@ -126,6 +137,30 @@ class LinkedList {
             }
         };
         return null
+    }
+
+    delete(key) {
+        let current = this.head;
+        let saveCurrent = current;
+        if (current === null) {
+            return false
+        };
+        if (current.key === key) {
+            this.head = this.head.nextNode;
+            if (this.head === null) {
+               return null
+            }
+            return true
+        };
+        while (saveCurrent.nextNode) {
+            saveCurrent = current;
+            current = current.nextNode;
+            if (current.key === key) {
+                saveCurrent.nextNode = current.nextNode;
+                return true
+            }
+        }
+        return false
     }
 }
 
@@ -144,16 +179,14 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 
-test.get('kite')
-test.get('lion')
-test.get('hat')
+test.print()
 
-test.set('kite', 'fxvfv')
-test.set('lion', 'ikuikg')
-test.set('hat', "eeeeeee")
+test.remove('apple')
+test.remove('elephant')
+test.remove('lion')
+test.remove('hat')
+test.remove('efdfvb')
+test.remove('ff')
 
-
-test.get('kite')
-test.get('lion')
-test.get('hat')
+test.print()
 
